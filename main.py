@@ -1,3 +1,6 @@
+import csv
+import math
+
 
 class Question:
     def __init__(self, col, value):
@@ -8,6 +11,12 @@ class Question:
         value = example[self.column]
         if self.is_int():
             return value >= self.value
+        else:
+            return value == self.value
+
+    def match_value(self, value):
+        if self.is_int():
+            return float(value) >= self.value
         else:
             return value == self.value
 
@@ -49,7 +58,8 @@ def gini(rows):
 
 
 def information_gain(current, left, right):
-
+    #een aangepaste manier om de mate aan chaos/onzekerheid te meten. normaal gesproken word deze gemeten met de log2 ipv de gini
+    #gini is ook een methode om disorder te meten
     p = len(left) / (len(left) + len(right))
     return current - p * gini(left) - (1-p) * gini(right)
 
@@ -72,10 +82,10 @@ def find_best_question(rows):
             true, false = partition(rows, question)
 
             info_gain = information_gain(current, true, false)
-            print(question)
-            print(info_gain)
+            # print(question)
+            # print(info_gain)
 
-            if info_gain >= best_gain:
+            if info_gain > best_gain:
                 best_gain = info_gain
                 best_question = question
 
@@ -135,28 +145,35 @@ class Tree:
             self.predict(row, node.false_branch)
 
 
-headers = ["haircolor", "job", "gender", "age", "label"]
+with open("dataset.csv", 'r', newline='') as file:
+    reader = csv.reader(file)
+    dataset = [row for (index, row) in enumerate(reader)]
+    headers = dataset[0]
+    del dataset[0]
 
-dataset = [
-    ["black", "musician", "male", 50, "Micheal Jackson"],
-    ["grey", "scientist", "male", 76, "Albert Einstein"],
-    ["n/a", "comedian", "male", 53, "Joe Rogan"],
-    ["blonde", "musician", "female", 43, "Shakira"],
-    ["blonde", "musician", "female", 50, "Gwen Stefani"],
-    ["black", "coder", "male", 21, "Jan Baljan"],
-    ["black", "fighter", "male", 35, "Nate Diaz"],
-    ["black", "fighter", "male", 35, "Jorge Masvidal"],
-    ["grey", "comedian", "male", 60, "Joey Diaz"],
-    ["black", "scientist", "male", 36, "Lex Fridman"],
-    ["black", "musician", "female", 39, "Beyonce"],
-    ["brown", "musician", "female", 18, "Billie Eilish"],
-]
+# headers = ["haircolor", "job", "gender", "age", "label"]
+#
+# dataset = [
+#     ["black", "musician", "male", 50, "Micheal Jackson"],
+#     ["grey", "scientist", "male", 76, "Albert Einstein"],
+#     ["n/a", "comedian", "male", 53, "Joe Rogan"],
+#     ["blonde", "musician", "female", 43, "Shakira"],
+#     ["blonde", "musician", "female", 50, "Gwen Stefani"],
+#     ["black", "coder", "male", 21, "Jan Baljan"],
+#     ["black", "fighter", "male", 35, "Nate Diaz"],
+#     ["black", "fighter", "male", 35, "Jorge Masvidal"],
+#     ["grey", "comedian", "male", 60, "Joey Diaz"],
+#     ["black", "scientist", "male", 36, "Lex Fridman"],
+#     ["black", "musician", "female", 39, "Beyonce"],
+#     ["brown", "musician", "female", 18, "Billie Eilish"],
+#     ["blonde", "bodybuilder", "male", 23, "Stan Deckers"],
+# ]
+#
+# test = [
+#     ["", "", "male", 50, "Micheal Jackson"],
+#     ["grey", "scientist", "male", 76, "еуые2"],
+# ]
 
-test = [
-    ["", "", "female", 18, "еуые1"],
-    ["grey", "scientist", "male", 76, "еуые2"],
-    ["n/a", "comedian", "male", 53, "еуые3"],
-]
 # headers = ["color", "diameter", "label"]
 #
 # dataset = [
@@ -166,17 +183,29 @@ test = [
 #     ['Red', 1, 'Grape'],
 #     ['Yellow', 3, 'Lemon'],
 # ]
-#
-# test = [
-#     ['Green', 3, 'Apple'],
-#     ['Yellow', 3, 'Apple'],
-#     ['Red', 1, 'Grape'],
-# ]
-
 
 tree = Tree(dataset)
 
-# tree.print_tree()
+tree.print_tree()
 
 # tree.predict(test[0], tree.root)
+
+
+def ask(root):
+
+    if isinstance(root, Leaf):
+        print("\n", root.probabilities)
+        return
+
+    print(root.question)
+
+    answer = bool(int(input("input (True, 1 or False, 0): ")))
+
+    if answer:
+        ask(root.true_branch)
+    else:
+        ask(root.false_branch)
+
+
+# ask(tree.root)
 

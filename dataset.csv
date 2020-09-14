@@ -1,0 +1,25 @@
+hair_color,hair,eye_color,facial_hair,gender,has_glasses,has_earrings,has_hat,is_balding,label
+black,short,brown,mustache,male,no,no,no,no,Alex
+orange,long,blue,mustache,male,no,no,no,no,Alfred
+blonde,long,blue,none,female,no,no,no,no,Anita
+black,short,brown,none,female,no,yes,no,no,Anne
+brown,short,brown,none,male,no,no,yes,no,Bernard
+orange,very short,brown,goatee,male,no,no,no,yes,Bill
+blonde,short,brown,mustache,male,no,no,no,no,Charles
+orange,short,brown,none,female,yes,no,yes,no,Claire
+blonde,short,brown,goatee,male,no,no,no,no,David
+blonde,short,brown,none,male,no,no,yes,no,Eric
+orange,short,brown,none,male,no,no,no,no,Frans
+white,short,brown,none,male,no,no,yes,no,George
+orange,very short,brown,none,male,no,no,no,yes,Herman
+blonde,short,brown,none,male,yes,no,no,no,Joe
+brown,long,brown,none,female,no,yes,yes,no,Maria
+black,short,brown,mustache,male,no,no,no,no,Max
+white,short,brown,none,male,yes,no,no,no,Paul
+white,short,blue,none,male,no,no,no,no,Peter
+black,short,brown,beard,male,no,no,no,no,Philip
+brown,very short,brown,beard,male,no,no,no,yes,Richard
+brown,short,blue,none,male,no,no,no,no,Robert
+white,very short,brown,none,male,yes,no,no,yes,Sam
+white,long,brown,none,female,no,no,no,no,Susan
+black,very short,blue,none,male,yes,no,no,yes,Tom
